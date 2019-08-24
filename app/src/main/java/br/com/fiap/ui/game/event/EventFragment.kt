@@ -1,11 +1,13 @@
 package br.com.fiap.ui.game.event
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import br.com.fiap.R
 import br.com.fiap.ui.game.hometeam.HomeTeamFragment
@@ -29,9 +31,24 @@ class EventFragment : Fragment() {
     }
 
     private fun nextScreen() {
+        sendEventName()
         val ft = activity?.supportFragmentManager?.beginTransaction()
+        ft?.setCustomAnimations(
+            R.anim.enter_from_right,
+            R.anim.exit_to_left,
+            R.anim.enter_from_left,
+            R.anim.exit_to_right
+        )
+
         ft?.replace(R.id.containerGame, HomeTeamFragment())
         ft?.addToBackStack(null)
         ft?.commit()
     }
+
+    private fun sendEventName() {
+        val intent = Intent("FILTER_EVENT")
+        intent.putExtra("event_name", inputEvent.text.toString())
+        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+    }
+
 }

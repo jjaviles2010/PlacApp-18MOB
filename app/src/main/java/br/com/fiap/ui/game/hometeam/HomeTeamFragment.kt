@@ -1,11 +1,13 @@
 package br.com.fiap.ui.game.hometeam
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import br.com.fiap.R
 import br.com.fiap.ui.game.awayteam.AwayTeamFragment
@@ -23,14 +25,13 @@ class HomeTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btNextStep.setOnClickListener {
-            nextScreen()
+            sendHomeTeamName()
         }
     }
-    private fun nextScreen() {
-        val ft = activity?.supportFragmentManager?.beginTransaction()
-        ft?.replace(R.id.containerGame, AwayTeamFragment())
-        ft?.addToBackStack(null)
-        ft?.commit()
-    }
 
+    private fun sendHomeTeamName() {
+        val intent = Intent("FILTER_HOME_TEAM")
+        intent.putExtra("home_team", inputHomeTeam.text.toString())
+        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+    }
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import br.com.fiap.R
 import br.com.fiap.ui.score.ScoreActivity
@@ -25,12 +26,14 @@ class AwayTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btNextStep.setOnClickListener {
-            nextScreen()
+            sendAwayTeamName()
         }
     }
-    private fun nextScreen() {
-        val nextScreen = Intent(activity, ScoreActivity::class.java)
-        startActivity(nextScreen)
-        activity?.finish()
+
+    private fun sendAwayTeamName() {
+        val intent = Intent("FILTER_AWAY_TEAM")
+        intent.putExtra("away_team", inputAwayTeam.text.toString())
+        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
     }
+
 }
