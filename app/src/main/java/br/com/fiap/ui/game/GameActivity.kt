@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fiap.R
 import br.com.fiap.ui.game.awayteam.AwayTeamFragment
@@ -17,15 +18,15 @@ import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : AppCompatActivity() {
 
-    private var eventName = ""
-    private var homeTeam = ""
-    private var awayTeam = ""
+    private lateinit var gameViewModel : GameViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         showEventFragment()
+
+        gameViewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
         registerBroadcastReceiver()
 
@@ -59,19 +60,19 @@ class GameActivity : AppCompatActivity() {
     private val mMessageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.hasExtra("event_name")) {
-                eventName = intent.getStringExtra("event_name")
+                gameViewModel.eventName = intent.getStringExtra("event_name")
                 showHomeTeamFragment()
 
             }
 
             if (intent.hasExtra("home_team")) {
-                homeTeam = intent.getStringExtra("home_team")
+                gameViewModel.homeTeam = intent.getStringExtra("home_team")
                 showAwayTeamFragment()
 
             }
 
             if (intent.hasExtra("away_team")) {
-                awayTeam = intent.getStringExtra("away_team")
+                gameViewModel.awayTeam = intent.getStringExtra("away_team")
                 showScoreActivity()
             }
         }
@@ -100,9 +101,9 @@ class GameActivity : AppCompatActivity() {
 
     private fun showScoreActivity() {
         val nextScreen = Intent(this@GameActivity, ScoreActivity::class.java)
-        nextScreen.putExtra("eventName", eventName)
-        nextScreen.putExtra("homeTeam", homeTeam)
-        nextScreen.putExtra("awayTeam", awayTeam)
+        nextScreen.putExtra("eventName", gameViewModel.eventName)
+        nextScreen.putExtra("homeTeam", gameViewModel.homeTeam)
+        nextScreen.putExtra("awayTeam", gameViewModel.awayTeam)
         startActivity(nextScreen)
         finish()
     }

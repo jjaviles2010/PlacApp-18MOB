@@ -81,7 +81,7 @@
     <Button
             style="@style/custom_button"
             android:text="Finalizar partida"
-            android:id="@+id/button4" android:layout_marginTop="32dp"
+            android:id="@+id/btFinish" android:layout_marginTop="32dp"
             app:layout_constraintTop_toBottomOf="@+id/btRestart" app:layout_constraintStart_toStartOf="@+id/btRestart"
             app:layout_constraintEnd_toEndOf="@+id/btRestart"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
