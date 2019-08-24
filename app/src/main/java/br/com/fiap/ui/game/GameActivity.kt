@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import br.com.fiap.R
+import br.com.fiap.model.Game
 import br.com.fiap.ui.game.awayteam.AwayTeamFragment
 import br.com.fiap.ui.game.event.EventFragment
 import br.com.fiap.ui.game.hometeam.HomeTeamFragment
@@ -100,11 +101,13 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun showScoreActivity() {
+
+        val game = Game(gameViewModel.eventName, gameViewModel.homeTeam, gameViewModel.awayTeam)
+
         val nextScreen = Intent(this@GameActivity, ScoreActivity::class.java)
-        nextScreen.putExtra("eventName", gameViewModel.eventName)
-        nextScreen.putExtra("homeTeam", gameViewModel.homeTeam)
-        nextScreen.putExtra("awayTeam", gameViewModel.awayTeam)
+        nextScreen.putExtra("game", game)
         startActivity(nextScreen)
+
         finish()
     }
 

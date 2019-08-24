@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.fiap.R
+import br.com.fiap.model.Game
 import kotlinx.android.synthetic.main.activity_score.*
 
 class ScoreActivity : AppCompatActivity() {
@@ -50,9 +51,18 @@ class ScoreActivity : AppCompatActivity() {
     }
 
     private fun setExtras() {
-        tvEventName.text = intent.extras?.getString("eventName")
-        tvHomeName.text = intent.extras?.getString("homeTeam")
-        tvAwayName.text = intent.extras?.getString("awayTeam")
+
+        /*val game = intent.extras?.getParcelable<Game>("game") // as? Game --> Outra forma de fazer
+
+        tvEventName.text = game?.event
+        tvHomeName.text = game?.homeTeam
+        tvAwayName.text = game?.awayTeam ?: ""*/
+
+        intent.extras?.getParcelable<Game>("game")?.apply {
+            tvEventName.text = event
+            tvHomeName.text = homeTeam
+            tvAwayName.text = awayTeam
+        }
     }
 
 }

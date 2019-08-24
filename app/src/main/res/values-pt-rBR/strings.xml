@@ -1,12 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">@string/main_title</string>
-    <string name="main_title" translatable="false">placapp</string>
-    <string name="button_new_game">New Game</string>
-    <string name="button_exit">Exit</string>
-    <string name="developed_by">Develop by Jose Javier</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="main_subtitle">Turn your games into unforgettable moments</string>
+    <string name="button_exit">Sair</string>
+    <string name="button_new_game">Novo Jogo</string>
+    <string name="developed_by">Desenvolvido por Jose Javier</string>
+    <string name="main_subtitle">Transforme seus jogos em momentos</string>
     <string name="event_name">Event name</string>
     <string name="lbhome">Home</string>
     <string name="tvaway">Away</string>
